@@ -1,3 +1,6 @@
+def euclides_algorithm(number_1, number_2):
+    return
+
 class FiniteFieldElement:
     def __init__(self, number, prime):
         if number >= prime or number < 0:
@@ -29,14 +32,17 @@ class FiniteFieldElement:
         return self.__class__(new_number, self.prime)
     
     def __truediv__(self, other):
-
-        return
+        if self.prime != other.prime: 
+            raise TypeError('Cannot divide two numbers in different Fields')
+        new_number = (self.number * pow(other.number, self.prime - 2, self.prime)) % self.prime #Pequeño teorema de fermat optimizado por la funcion pow()
+        return self.__class__(new_number, self.prime)
 
 def main():
-    number_1 = FiniteFieldElement(3,13)
-    number_2 = FiniteFieldElement(12,13)
-    number_3 = FiniteFieldElement(10,13)
+    number_1 = FiniteFieldElement(7,1000)
+    number_2 = FiniteFieldElement(5,1000)
+    number_3 = FiniteFieldElement(10,19)
     print((number_1 - number_2).number)
     print((number_1 * number_2).number)
+    print((number_1 / number_2).number)
 
 main()
