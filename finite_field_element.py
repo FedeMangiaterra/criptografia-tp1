@@ -18,16 +18,17 @@ class FiniteFieldElement:
         return self.__class__(new_number, self.prime)
 
     def __mul__(self, other):
-
-        return
+        new_number = (self.number * other) % self.prime
+        return self.__class__(new_number, self.prime)
     
     def __truediv__(self, other):
 
         return
 
 def main():
-    number_1 = FiniteFieldElement(4,7)
-    number_2 = FiniteFieldElement(4,7)
+    number_1 = FiniteFieldElement(8,19)
+    number_2 = FiniteFieldElement(5,19)
     print((number_1 - number_2).number)
+    print((number_1 * 17).number)
 
 main()
