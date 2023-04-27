@@ -5,6 +5,11 @@ class FiniteFieldElement:
         self.number = number
         self.prime = prime
 
+    def __eq__(self, other):
+        if other is None:
+            return False
+        return self.number == other.number and self.prime == other.prime
+
     def __add__(self, other):
         if self.prime != other.prime: 
             raise TypeError('Cannot add two numbers in different Fields')
@@ -18,7 +23,9 @@ class FiniteFieldElement:
         return self.__class__(new_number, self.prime)
 
     def __mul__(self, other):
-        new_number = (self.number * other) % self.prime
+        if self.prime != other.prime: 
+            raise TypeError('Cannot multiply two numbers in different Fields')
+        new_number = (self.number * other.number) % self.prime
         return self.__class__(new_number, self.prime)
     
     def __truediv__(self, other):
@@ -26,9 +33,10 @@ class FiniteFieldElement:
         return
 
 def main():
-    number_1 = FiniteFieldElement(8,19)
-    number_2 = FiniteFieldElement(5,19)
+    number_1 = FiniteFieldElement(3,13)
+    number_2 = FiniteFieldElement(12,13)
+    number_3 = FiniteFieldElement(10,13)
     print((number_1 - number_2).number)
-    print((number_1 * 17).number)
+    print((number_1 * number_2).number)
 
 main()
