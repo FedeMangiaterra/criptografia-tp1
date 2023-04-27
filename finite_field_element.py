@@ -12,8 +12,10 @@ class FiniteFieldElement:
         return self.__class__(new_number, self.prime)
 
     def __sub__(self, other):
-
-        return
+        if self.prime != other.prime: 
+            raise TypeError('Cannot substract two numbers in different Fields')
+        new_number = (self.prime + (self.number - other.number)) % self.prime 
+        return self.__class__(new_number, self.prime)
 
     def __mul__(self, other):
 
@@ -25,7 +27,7 @@ class FiniteFieldElement:
 
 def main():
     number_1 = FiniteFieldElement(4,7)
-    number_2 = FiniteFieldElement(5,7)
-    print((number_1 + number_2).number)
+    number_2 = FiniteFieldElement(4,7)
+    print((number_1 - number_2).number)
 
 main()
