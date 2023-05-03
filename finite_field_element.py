@@ -1,6 +1,3 @@
-def euclides_algorithm(number_1, number_2):
-    return
-
 class FiniteFieldElement:
     def __init__(self, number, prime):
         if number >= prime or number < 0:
