@@ -27,7 +27,10 @@ class ElipticCurvePoint:
         
         #Mismo punto
         if self.x == other.x and self.y == other.y:
-            return
+            slope = (3 * (self.x ** 2) + self.a) / 2 * self.y
+            new_x = slope ** 2 - 2 * self.x
+            new_y = slope * (self.x - new_x) - self.y
+            return self.__class__(new_x, new_y, self.a, self.b)
         
         #Suma de puntos con distinto x, distinto y
         slope = (other.y - self.y) / (other.x - self.x)
