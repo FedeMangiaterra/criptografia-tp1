@@ -28,6 +28,10 @@ class FiniteFieldElement:
         new_number = (self.number * other.number) % self.prime
         return self.__class__(new_number, self.prime)
     
+    def __pow__(self, exponent):
+        number =  pow(self.number, exponent, self.prime)
+        return self.__class__(number, self.prime)
+    
     def __truediv__(self, other):
         if self.prime != other.prime: 
             raise TypeError('Cannot divide two numbers in different Fields')

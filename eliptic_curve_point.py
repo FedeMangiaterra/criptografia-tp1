@@ -1,3 +1,5 @@
+from finite_field_element import FiniteFieldElement
+
 class ElipticCurvePoint:
     def __init__(self, x, y, a, b):
         self.a = a
