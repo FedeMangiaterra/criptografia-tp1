@@ -25,8 +25,12 @@ class ElipticCurvePoint:
         if self.x == other.x and self.y != other.y:
             return self.__class__(None, None, self.a, self.b)
         
-        #Mismo punto
-        if self.x == other.x and self.y == other.y:
+        #Mismo punto con y = 0 (tangente vertical)
+        if self == other and self.y == 0:
+            return self.__class__(None, None, self.a, self.b)
+        
+        #Mismo punto con y distinto de 0
+        if self == other:
             slope = (3 * (self.x ** 2) + self.a) / 2 * self.y
             new_x = slope ** 2 - 2 * self.x
             new_y = slope * (self.x - new_x) - self.y
@@ -37,7 +41,3 @@ class ElipticCurvePoint:
         new_x = slope ** 2 - self.x - other.x
         new_y = slope * (self.x - new_x) - self.y
         return self.__class__(new_x, new_y, self.a, self.b)
-
-    
-    def duplicate(self):
-        return
