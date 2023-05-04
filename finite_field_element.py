@@ -1,8 +1,6 @@
 class FiniteFieldElement:
     def __init__(self, number, prime):
-        if number >= prime or number < 0:
-            raise ValueError(f"Number has to be between 0 and {prime}")
-        self.number = number
+        self.number = number % prime
         self.prime = prime
 
     def __eq__(self, other):
@@ -41,9 +39,10 @@ class FiniteFieldElement:
 def main():
     number_1 = FiniteFieldElement(7,1000)
     number_2 = FiniteFieldElement(5,1000)
-    number_3 = FiniteFieldElement(10,19)
+    number_3 = FiniteFieldElement(-3,1021)
     print((number_1 - number_2).number)
     print((number_1 * number_2).number)
     print((number_1 / number_2).number)
+    print(number_3.number)
 
 main()
