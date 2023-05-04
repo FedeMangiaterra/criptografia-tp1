@@ -43,3 +43,23 @@ class ElipticCurvePoint:
         new_x = slope ** 2 - self.x - other.x
         new_y = slope * (self.x - new_x) - self.y
         return self.__class__(new_x, new_y, self.a, self.b)
+
+def main():
+    p = 1021
+    a = FiniteFieldElement(-3, p)
+    b = FiniteFieldElement(-3, p)
+    points_amount = 1 #Point at infinity
+    for i in range(0, p):
+        for j in range(0, p):
+            x = FiniteFieldElement(i, p)
+            y = FiniteFieldElement(j, p)
+            try:
+                point = ElipticCurvePoint(x, y, a, b)
+                points_amount += 1
+                print(f"({x.number}, {y.number}) is on the curve")
+            except ValueError:
+                continue
+    print(f"The curve has {points_amount} points")
+    return
+
+main()
