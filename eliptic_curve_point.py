@@ -28,12 +28,12 @@ class ElipticCurvePoint:
             return self.__class__(None, None, self.a, self.b)
         
         #Mismo punto con y = 0 (tangente vertical)
-        if self == other and self.y == 0:
+        if self == other and self.y == 0 * self.x:
             return self.__class__(None, None, self.a, self.b)
         
         #Mismo punto con y distinto de 0
         if self == other:
-            slope = (3 * (self.x ** 2) + self.a) / 2 * self.y
+            slope = (3 * (self.x ** 2) + self.a) / (2 * self.y)
             new_x = slope ** 2 - 2 * self.x
             new_y = slope * (self.x - new_x) - self.y
             return self.__class__(new_x, new_y, self.a, self.b)
@@ -43,6 +43,17 @@ class ElipticCurvePoint:
         new_x = slope ** 2 - self.x - other.x
         new_y = slope * (self.x - new_x) - self.y
         return self.__class__(new_x, new_y, self.a, self.b)
+    
+    def __rmul__(self, coefficient):
+        coef = coefficient
+        current = self 
+        result = self.__class__(None, None, self.a, self.b) 
+        while coef:
+            if coef & 1: 
+                result += current
+            current += current 
+            coef >>= 1 
+        return result
 
 def main():
     p = 1021
@@ -56,10 +67,17 @@ def main():
             try:
                 point = ElipticCurvePoint(x, y, a, b)
                 points_amount += 1
-                print(f"({x.number}, {y.number}) is on the curve")
+                #print(f"({x.number}, {y.number}) is on the curve")
             except ValueError:
                 continue
     print(f"The curve has {points_amount} points")
+
+    x = FiniteFieldElement(379, p)
+    y = FiniteFieldElement(1011, p)
+    k = 655
+    point = ElipticCurvePoint(x, y, a, b)
+    kP = (k * point)
+    print(f"kP with P=({x.number}, {y.number}) mod {x.prime} and k={k} is the point ({kP.x.number}, {kP.y.number})")
     return
 
 main()

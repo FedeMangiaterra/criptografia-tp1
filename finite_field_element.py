@@ -26,9 +26,14 @@ class FiniteFieldElement:
         new_number = (self.number * other.number) % self.prime
         return self.__class__(new_number, self.prime)
     
+    def __rmul__(self, coefficient):
+        new_number = (self.number * coefficient) % self.prime
+        return self.__class__(new_number, self.prime)
+    
     def __pow__(self, exponent):
-        number =  pow(self.number, exponent, self.prime)
-        return self.__class__(number, self.prime)
+        n = exponent % (self.prime - 1) 
+        num = pow(self.number, n, self.prime)
+        return self.__class__(num, self.prime)
     
     def __truediv__(self, other):
         if self.prime != other.prime: 
@@ -43,6 +48,4 @@ def main():
     print((number_1 - number_2).number)
     print((number_1 * number_2).number)
     print((number_1 / number_2).number)
-    print(number_3.number)
-
-main()
+    print((201 * number_2).number)
