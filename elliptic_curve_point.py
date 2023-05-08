@@ -1,6 +1,6 @@
 from finite_field_element import FiniteFieldElement
 
-class ElipticCurvePoint:
+class EllipticCurvePoint:
     def __init__(self, x, y, a, b):
         self.a = a
         self.b = b
@@ -98,7 +98,7 @@ def main():
             x = FiniteFieldElement(i, p)
             y = FiniteFieldElement(j, p)
             try:
-                point = ElipticCurvePoint(x, y, a, b)
+                point = EllipticCurvePoint(x, y, a, b)
                 points_amount += 1
                 #print(f"({x.number}, {y.number}) is on the curve")
             except ValueError:
@@ -109,7 +109,7 @@ def main():
     x = FiniteFieldElement(379, p)
     y = FiniteFieldElement(1011, p)
     k = 655
-    point = ElipticCurvePoint(x, y, a, b)
+    point = EllipticCurvePoint(x, y, a, b)
     kP = (k * point)
     print(f"kP with P=({x.number}, {y.number}) mod {x.prime} and k={k} is the point ({kP.x.number}, {kP.y.number})")
     return
