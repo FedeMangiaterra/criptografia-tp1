@@ -54,12 +54,45 @@ class ElipticCurvePoint:
             current += current 
             coef >>= 1 
         return result
+    
+    def get_curve_size(self, prime):
+        points_amount = 1 #Punto en el infinito
+        for i in range(0, prime):
+            for j in range(0, prime):
+                x = FiniteFieldElement(i, prime)
+                y = FiniteFieldElement(j, prime)
+                try:
+                    point = self.__class__(x, y, self.a, self.b)
+                    points_amount += 1
+                except ValueError:
+                    continue
+        return points_amount
+
+    def get_subgroup(self):
+        order = 0
+        finished_cycling = False
+        subgroup = []
+        while not finished_cycling:
+            order += 1
+            point = order * self
+            subgroup.append(point)
+            if point == self.__class__(None, None, self.a, self.b):
+                finished_cycling = True
+        return subgroup, order
+    
+    def print_info(self):
+        if type(self.x) == FiniteFieldElement:
+            return (f"({self.x.number}, {self.y.number}) mod {self.x.prime}")
+        else:
+            return (f"({self.x}, {self.y})")
 
 def main():
     p = 1021
     a = FiniteFieldElement(-3, p)
     b = FiniteFieldElement(-3, p)
-    points_amount = 1 #Point at infinity
+
+    #Calculo cantidad de puntos en la curva
+    points_amount = 1 #Punto en el infinito
     for i in range(0, p):
         for j in range(0, p):
             x = FiniteFieldElement(i, p)
@@ -72,6 +105,7 @@ def main():
                 continue
     print(f"The curve has {points_amount} points")
 
+    #Calculo kP
     x = FiniteFieldElement(379, p)
     y = FiniteFieldElement(1011, p)
     k = 655
@@ -80,4 +114,5 @@ def main():
     print(f"kP with P=({x.number}, {y.number}) mod {x.prime} and k={k} is the point ({kP.x.number}, {kP.y.number})")
     return
 
-main()
+if __name__ == "__main__":
+    main()

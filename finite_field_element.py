@@ -40,6 +40,9 @@ class FiniteFieldElement:
             raise TypeError('Cannot divide two numbers in different Fields')
         new_number = (self.number * pow(other.number, self.prime - 2, self.prime)) % self.prime #Pequeño teorema de fermat optimizado por la funcion pow()
         return self.__class__(new_number, self.prime)
+    
+    def print_info(self):
+        print(f"{self.number} mod {self.prime}")
 
 def main():
     number_1 = FiniteFieldElement(7,1000)
@@ -49,3 +52,6 @@ def main():
     print((number_1 * number_2).number)
     print((number_1 / number_2).number)
     print((201 * number_2).number)
+
+if __name__ == "__main__":
+    main()
