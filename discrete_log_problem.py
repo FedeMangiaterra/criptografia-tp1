@@ -10,6 +10,27 @@ def brute_force(generator, order, result):
             print(f"Time elapsed: {end - start}")
             return i
     
+def baby_steps_giant_steps(r, s, generator, order, result):
+    start = timer()
+    if (r * s <= order):
+        print(f"r * s must be greater than {order}")
+        return -1
+    baby_steps = {}
+    for i in range(1, r):
+        point = i* generator
+        if point == result:
+            end = timer()
+            print(f"Time elapsed: {end - start}")
+            return i
+        baby_steps[point.print_info()] = i
+    for j in range(1, s):
+        substracting_point = (j * r) * generator
+        point = result + EllipticCurvePoint(substracting_point.x, -1 * substracting_point.y, substracting_point.a, substracting_point.b)
+        if point.print_info() in baby_steps:
+            solution = baby_steps[point.print_info()] + j * r
+            end = timer()
+            print(f"Time elapsed: {end - start}")
+            return solution
 
 def main():
     p = 1021
@@ -31,7 +52,11 @@ def main():
 
     print("Solving with brute force")
     private_key = brute_force(generator, order, result)
-    print(private_key)
+    print(f"Obtained result: {private_key}")
+
+    print("Solving with baby steps giant steps")
+    private_key = baby_steps_giant_steps(35, 35, generator, order, result)
+    print(f"Obtained result: {private_key}")
     
     return
 
