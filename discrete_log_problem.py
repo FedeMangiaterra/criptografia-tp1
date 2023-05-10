@@ -18,18 +18,19 @@ def baby_steps_giant_steps(r, s, generator, order, result):
     if (r * s <= order):
         print(f"r * s must be greater than {order}")
         return -1
-    baby_steps = {}
+    baby_steps = {} # Diccionario donde las claves son strings del formato (x, y) mod p y los valores son la iteracion en la que se obtuvo ese punto
     for i in range(1, r):
         point = i* generator
-        if point == result:
+        if point == result: # La clave buscada estaba entre 1 y r
             end = timer()
             print(f"Time elapsed: {end - start}")
             return i
         baby_steps[point.print_info()] = i
     for j in range(1, s):
         substracting_point = (j * r) * generator
-        point = result + EllipticCurvePoint(substracting_point.x, -1 * substracting_point.y, substracting_point.a, substracting_point.b)
-        if point.print_info() in baby_steps:
+        # Para restar un punto de curva eliptica, realizo una suma de ese punto pero invirtiendo el valor de y
+        point = result + EllipticCurvePoint(substracting_point.x, -1 * substracting_point.y, substracting_point.a, substracting_point.b) 
+        if point.print_info() in baby_steps: # Si hay una colision, es decir, calcule un punto que ya calcule en los baby steps
             solution = baby_steps[point.print_info()] + j * r
             end = timer()
             print(f"Time elapsed: {end - start}")
@@ -53,6 +54,7 @@ def main():
     y_result = FiniteFieldElement(827, p)
     result = EllipticCurvePoint(x_result, y_result, a, b)
 
+    #Primero resuelvo por fuerza bruta para compararlo con un algoritmo mejor
     print("Solving with brute force")
     private_key = brute_force(generator, order, result)
     print(f"Obtained result: {private_key}")

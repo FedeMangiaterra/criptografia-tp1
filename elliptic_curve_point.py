@@ -104,7 +104,6 @@ def main():
             try:
                 point = EllipticCurvePoint(x, y, a, b)
                 points_amount += 1
-                #print(f"({x.number}, {y.number}) is on the curve")
             except ValueError:
                 continue
     print(f"The curve has {points_amount} points")
