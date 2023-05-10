@@ -1,3 +1,7 @@
+'''Implementar un tipo de dato para puntos de una curva elíptica, junto con las operaciones de grupo
+(suma de puntos distintos y duplicación de puntos), utilizando la forma de Weierstrass. Hacer pruebas
+con la curva y 2=x 3 -3x-3 y p=1021, determinando la cantidad de puntos que tiene la curva. Usando P=(379,1011), 
+obtener kP, siendo k=655.'''
 from finite_field_element import FiniteFieldElement
 
 class EllipticCurvePoint:

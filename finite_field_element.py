@@ -1,3 +1,6 @@
+'''Implementar un tipo de dato para un elemento de cuerpo finito, junto con sus operaciones aritméticas
+fundamentales (adición, sustracción, multiplicación y división).'''
+
 class FiniteFieldElement:
     def __init__(self, number, prime):
         self.number = number % prime

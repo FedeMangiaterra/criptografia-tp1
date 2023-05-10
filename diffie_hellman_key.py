@@ -1,3 +1,6 @@
+'''Implementar un esquema básico de acuerdo de clave de Diffie-Hellman usando curvas elípticas.
+Usar la curva con p=43, y 2=x 3+6 y como generador g=(13,15). ¿Qué sucede si se emplea el punto g=(9,2)?'''
+
 from elliptic_curve_point import EllipticCurvePoint
 from finite_field_element import FiniteFieldElement
 import random

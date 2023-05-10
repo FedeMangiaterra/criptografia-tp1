@@ -1,3 +1,6 @@
+'''Considerar la curva y 2=x 3+905x+100 definida sobre el cuerpo primo de orden 1021 y el punto generador (1006,416). 
+Desarrollar alguna estrategia que permita resolver el problema del logaritmo discreto kP=(612,827)'''
+
 from finite_field_element import FiniteFieldElement
 from elliptic_curve_point import EllipticCurvePoint
 from timeit import default_timer as timer
